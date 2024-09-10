@@ -1,16 +1,14 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
+import type { Metadata } from "next";
+import Header from "@/components/common/Header";
+import Sidebar from "@/components/common/Sidebar";
+import Footer from "@/components/common/Footer";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
+import { Lexend_Deca } from "next/font/google";
+
+const lexendDeca = Lexend_Deca({
+  subsets: ["latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -26,9 +24,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${lexendDeca.className} antialiased flex flex-col h-screen`}
       >
-        {children}
+        <Header />
+        <div className="flex flex-1 h-[calc(100vh-80px)]">
+          <Sidebar />
+          <div className="flex-1 h-full w-full overflow-y-auto overflow-x-hidden max-md:pb-20">
+            {children}
+          </div>
+        </div>
+        <Footer />
       </body>
     </html>
   );
